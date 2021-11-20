@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".ListPokemon">
 
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Mis Pokemones"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/atraparBtn" />
+
     <EditText
         android:id="@+id/atrapar"
         android:layout_width="wrap_content"
@@ -24,10 +35,10 @@
         android:id="@+id/atraparBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="12dp"
         android:text="Atrapar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/atrapar" />
 
@@ -46,7 +57,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="52dp"
         android:ems="10"
         android:hint="Buscar"
         android:inputType="textPersonName"
