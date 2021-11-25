@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/USUARIO/Documents/GitHub/Reto2/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2890625" />
+        <entry key="..\:/Users/USUARIO/Documents/GitHub/Reto2/app/src/main/res/layout/activity_list_pokemon.xml" value="0.22327898550724637" />
+        <entry key="..\:/Users/USUARIO/Documents/GitHub/Reto2/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/USUARIO/Documents/GitHub/Reto2/app/src/main/res/layout/activity_pokemon_detail.xml" value="0.22" />
         <entry key="..\:/Users/camil/Documents/prograRed/Reto2/app/src/main/res/layout/activity_list_pokemon.xml" value="0.33" />
         <entry key="..\:/Users/camil/Documents/prograRed/Reto2/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/camil/Documents/prograRed/Reto2/app/src/main/res/layout/activity_pokemon_detail.xml" value="0.15" />
