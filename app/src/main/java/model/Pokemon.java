@@ -6,13 +6,15 @@ public class Pokemon {
     private String defensa;
     private String ataque;
     private String uri;
+    private String vida;
 
-    public Pokemon(String nombre, String velocidad, String defensa, String ataque, String uri) {
+    public Pokemon(String nombre, String velocidad, String defensa, String ataque, String uri , String vida) {
         this.nombre = nombre;
         this.velocidad = velocidad;
         this.defensa = defensa;
         this.ataque = ataque;
         this.uri = uri;
+        this.vida=vida;
     }
 
     public Pokemon() {
@@ -36,5 +38,9 @@ public class Pokemon {
 
     public String getUri() {
         return uri;
+    }
+
+    public String getVida() {
+        return vida;
     }
 }
