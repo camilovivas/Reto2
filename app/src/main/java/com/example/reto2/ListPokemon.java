@@ -15,6 +15,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 import model.Entrenador;
+import model.Pokemon;
 
 public class ListPokemon extends AppCompatActivity implements View.OnClickListener {
     //elementos ui
@@ -60,6 +61,18 @@ public class ListPokemon extends AppCompatActivity implements View.OnClickListen
         db.collection("entrenadores").document(entrenador.getNombre()).set(entrenador);
 
     }
+
+    //TODO el mismo de entrenador,pero le agregas la parte de la colleccion del pokemon al entrenador
+    public void atraparPokemon(Pokemon pokemon){
+
+    }
+
+    public Pokemon getPokemon(String pokemonName){
+
+        return null;
+    }
+
+
 
     public Entrenador entrenadorExist(String name){
         final Entrenador[] toReturn = {null};
