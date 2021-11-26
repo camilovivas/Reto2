@@ -101,7 +101,8 @@ public class ListPokemon extends AppCompatActivity implements View.OnClickListen
     public Pokemon pokemonSearch(String nombreDelPokemon){
 
         final Pokemon[] toReturn = {null};
-        Query query = db.collection("pokemones").whereEqualTo("nombre", nombreDelPokemon);
+        Query query = db.collection("entrenadores").document(entrenador.getNombre())
+                .collection("pokemones").whereEqualTo("nombre", nombreDelPokemon);
         query.get().addOnCompleteListener(
                 task -> {
 
