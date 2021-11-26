@@ -47,7 +47,7 @@ public class ListPokemon extends AppCompatActivity implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.buscarBtn:
-
+                pokemonSearch(buscar.getText().toString());
 
                 break;
             case R.id.atraparBtn:
@@ -90,6 +90,29 @@ public class ListPokemon extends AppCompatActivity implements View.OnClickListen
                         registrarEntrenador(n);
                         toReturn[0] = n;
                         Toast.makeText(this, "Has sido registrado, Bienvenido",Toast.LENGTH_LONG).show();
+                    }
+                }
+        );
+        return toReturn[0];
+    }
+
+
+
+    public Pokemon pokemonSearch(String nombreDelPokemon){
+
+        final Pokemon[] toReturn = {null};
+        Query query = db.collection("pokemones").whereEqualTo("nombre", nombreDelPokemon);
+        query.get().addOnCompleteListener(
+                task -> {
+
+                    if(!task.getResult().isEmpty()){
+                        DocumentSnapshot ds = task.getResult().getDocuments().get(0);
+                        toReturn[0] = ds.toObject(Pokemon.class);
+                        Toast.makeText(this,toReturn[0].getNombre() ,Toast.LENGTH_LONG).show();
+                    }
+                    else{
+
+                        Toast.makeText(this, "No esta en la Pokedex",Toast.LENGTH_LONG).show();
                     }
                 }
         );
