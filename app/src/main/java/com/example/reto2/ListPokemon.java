@@ -64,7 +64,8 @@ public class ListPokemon extends AppCompatActivity implements View.OnClickListen
 
     //TODO el mismo de entrenador,pero le agregas la parte de la colleccion del pokemon al entrenador
     public void atraparPokemon(Pokemon pokemon){
-
+        db.collection("entrenadores").document(entrenador.getNombre())
+                .collection("pokemones").document(pokemon.getNombre()).set(pokemon);
     }
 
     public Pokemon getPokemon(String pokemonName){
