@@ -13,6 +13,15 @@ import android.widget.Toast;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
+import java.util.HashMap;
 
 import model.Entrenador;
 import model.Pokemon;
@@ -33,7 +42,7 @@ public class ListPokemon extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_pokemon);
         db = FirebaseFirestore.getInstance();
-        entrenador = entrenadorExist(getIntent().getExtras().getString("entrenador"));
+        entrenadorExist(getIntent().getExtras().getString("entrenador"));
         atrapar = findViewById(R.id.atrapar);
         buscar = findViewById(R.id.buscar);
         buscarBtn = findViewById(R.id.buscarBtn);
@@ -51,8 +60,7 @@ public class ListPokemon extends AppCompatActivity implements View.OnClickListen
 
                 break;
             case R.id.atraparBtn:
-
-
+                getPokemonFromApi(atrapar.getText().toString());
                 break;
         }
     }
@@ -62,38 +70,67 @@ public class ListPokemon extends AppCompatActivity implements View.OnClickListen
 
     }
 
-    //TODO el mismo de entrenador,pero le agregas la parte de la colleccion del pokemon al entrenador
-    public void atraparPokemon(Pokemon pokemon){
+    public void atraparPokemon(Pokemon pokemon, Entrenador entrenador){
         db.collection("entrenadores").document(entrenador.getNombre())
                 .collection("pokemones").document(pokemon.getNombre()).set(pokemon);
     }
 
-    public Pokemon getPokemon(String pokemonName){
+    public void getPokemonFromApi(String pokemonName){
+        HTTPS https = new HTTPS();
+        new Thread(
+                ()->{
+                    String response  = https.GETrequest("https://pokeapi.co/api/v2/pokemon/"+pokemonName);
+                    if (response != null){
+                        try {
+                            JSONObject pokemon = new JSONObject(response);
+                            String name = pokemon.getString("name");
 
-        return null;
+                            //imagen
+                            String uri = pokemon.getJSONObject("sprites").getString("front_default");
+
+                            //estadisticas
+                            JSONArray stats = pokemon.getJSONArray("stats");
+                            String vida = stats.getJSONObject(0).getString("base_stat");
+                            String ataque = stats.getJSONObject(1).getString("base_stat");
+                            String defensa = stats.getJSONObject(2).getString("base_stat");
+                            String velocidad = stats.getJSONObject(5).getString("base_stat");
+
+                            Pokemon p = new Pokemon(name, velocidad, defensa, ataque, uri, vida);
+                            atraparPokemon(p, entrenador);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    else{
+                        Toast.makeText(this, "Pokemon no encontrado, verifica el nombre",Toast.LENGTH_LONG).show();
+                    }
+                }
+        ).start();
+    }
+
+    public void getPokemonFromFirestore(){
+
     }
 
 
 
-    public Entrenador entrenadorExist(String name){
-        final Entrenador[] toReturn = {null};
+    public void entrenadorExist(String name){
         Query query = db.collection("entrenadores").whereEqualTo("nombre", name);
         query.get().addOnCompleteListener(
                 task -> {
 
                     if(!task.getResult().isEmpty()){
                         DocumentSnapshot ds = task.getResult().getDocuments().get(0);
-                        toReturn[0] = ds.toObject(Entrenador.class);
+                        entrenador = ds.toObject(Entrenador.class);
                     }
                     else{
                         Entrenador n = new Entrenador(name);
                         registrarEntrenador(n);
-                        toReturn[0] = n;
+                        entrenador = n;
                         Toast.makeText(this, "Has sido registrado, Bienvenido",Toast.LENGTH_LONG).show();
                     }
                 }
         );
-        return toReturn[0];
     }
 
 
