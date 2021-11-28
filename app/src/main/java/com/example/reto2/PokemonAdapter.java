@@ -1,5 +1,6 @@
 package com.example.reto2;
 
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,15 +8,20 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 import model.Pokemon;
 
+
 public class PokemonAdapter extends RecyclerView.Adapter<PokemonViewHolder> {
 
     private ArrayList<Pokemon> pokemons;
+    private Activity activity;
 
-    public PokemonAdapter(){
+    public PokemonAdapter(Activity activity){
+        this.activity = activity;
         pokemons=new ArrayList<>();
     }
     @NonNull
@@ -30,7 +36,8 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull PokemonViewHolder holder, int position) {
         Pokemon pokemon = pokemons.get(position);
-        holder.getPokemonRow().setText(pokemon.getNombre() +" "+ pokemon.getAtaque() +" "+ pokemon.getDefensa() +" "+pokemon.getVida() +" "+  pokemon.getVelocidad());
+        holder.getPokemonRow().setText(pokemon.getNombre());
+        Glide.with(activity).load(pokemon.getUri()).fitCenter().into(holder.getImage());
     }
 
     @Override
@@ -40,5 +47,6 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonViewHolder> {
 
     public void  addPokemon(Pokemon pokemon){
         pokemons.add(pokemon);
+        notifyItemInserted(pokemons.size()-1);
     }
 }

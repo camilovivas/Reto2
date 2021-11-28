@@ -22,6 +22,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import model.Entrenador;
@@ -34,14 +35,17 @@ public class ListPokemon extends AppCompatActivity implements View.OnClickListen
     private RecyclerView list;
     //modelo
     private Entrenador entrenador;
+    private ArrayList<Pokemon> pokemones;
     //firebase
     private FirebaseFirestore db;
-    //STATE
-    private  PokemonAdapter adapter;
+
+
+    //recycler
+    private  LinearLayoutManager manager;
+    private PokemonAdapter adapter;
 
     public ListPokemon(){
 
-        adapter = new PokemonAdapter();
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,15 +53,20 @@ public class ListPokemon extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_pokemon);
         db = FirebaseFirestore.getInstance();
+        pokemones = new ArrayList<>();
         entrenadorExist(getIntent().getExtras().getString("entrenador"));
         atrapar = findViewById(R.id.atrapar);
         buscar = findViewById(R.id.buscar);
         buscarBtn = findViewById(R.id.buscarBtn);
         atraparBtn = findViewById(R.id.atraparBtn);
         list = findViewById(R.id.list);
+        manager = new LinearLayoutManager(this);
+        adapter = new PokemonAdapter(this);
+        list.setLayoutManager(manager);
+        list.setAdapter(adapter);
+        list.setHasFixedSize(true);
         buscarBtn.setOnClickListener(this);
         atraparBtn.setOnClickListener(this);
-        list.setAdapter(adapter);
 
 
     }
@@ -119,7 +128,16 @@ public class ListPokemon extends AppCompatActivity implements View.OnClickListen
     }
 
     public void getPokemonFromFirestore(){
-
+        db.collection("entrenadores").document(entrenador.getNombre())
+                .collection("pokemones").get().addOnCompleteListener(
+                        task -> {
+                            for (DocumentSnapshot ds : task.getResult()) {
+                                Pokemon poke = ds.toObject(Pokemon.class);
+                                pokemones.add(poke);
+                                adapter.addPokemon(poke);
+                            }
+                        }
+                );
     }
 
 
@@ -132,6 +150,8 @@ public class ListPokemon extends AppCompatActivity implements View.OnClickListen
                     if(!task.getResult().isEmpty()){
                         DocumentSnapshot ds = task.getResult().getDocuments().get(0);
                         entrenador = ds.toObject(Entrenador.class);
+                        Toast.makeText(this, "Bienvenido",Toast.LENGTH_LONG).show();
+                        getPokemonFromFirestore();
                     }
                     else{
                         Entrenador n = new Entrenador(name);
