@@ -1,6 +1,8 @@
 package model;
 
-public class Pokemon {
+import java.io.Serializable;
+
+public class Pokemon implements Serializable {
     private String nombre;
     private String velocidad;
     private String defensa;

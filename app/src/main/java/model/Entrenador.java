@@ -1,12 +1,14 @@
 package model;
 
-public class Entrenador {
+import java.io.Serializable;
+
+public class Entrenador implements Serializable {
     private String nombre;
 
-    public Entrenador() {
+    public Entrenador(){
     }
 
-    public Entrenador(String nombre) {
+    public Entrenador(String nombre){
         this.nombre = nombre;
     }
 

@@ -8,10 +8,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
+import model.Entrenador;
 import model.Pokemon;
 
 
@@ -20,10 +20,17 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonViewHolder> {
     private ArrayList<Pokemon> pokemons;
     private Activity activity;
 
+    private Entrenador entrenador;
+
     public PokemonAdapter(Activity activity){
         this.activity = activity;
         pokemons=new ArrayList<>();
     }
+
+    public void setEntrenador(Entrenador entrenador) {
+        this.entrenador = entrenador;
+    }
+
     @NonNull
     @Override
     public PokemonViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -35,9 +42,10 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull PokemonViewHolder holder, int position) {
-        Pokemon pokemon = pokemons.get(position);
-        holder.getPokemonRow().setText(pokemon.getNombre());
-        Glide.with(activity).load(pokemon.getUri()).fitCenter().into(holder.getImage());
+        holder.setPokemon(pokemons.get(position));
+        holder.setEntrenador(entrenador);
+        holder.setActivity(activity);
+        holder.create();
     }
 
     @Override

@@ -92,6 +92,8 @@ public class ListPokemon extends AppCompatActivity implements View.OnClickListen
     public void atraparPokemon(Pokemon pokemon, Entrenador entrenador){
         db.collection("entrenadores").document(entrenador.getNombre())
                 .collection("pokemones").document(pokemon.getNombre()).set(pokemon);
+        pokemones.add(pokemon);
+        adapter.addPokemon(pokemon);
     }
 
     public void getPokemonFromApi(String pokemonName){
@@ -131,10 +133,12 @@ public class ListPokemon extends AppCompatActivity implements View.OnClickListen
         db.collection("entrenadores").document(entrenador.getNombre())
                 .collection("pokemones").get().addOnCompleteListener(
                         task -> {
-                            for (DocumentSnapshot ds : task.getResult()) {
-                                Pokemon poke = ds.toObject(Pokemon.class);
-                                pokemones.add(poke);
-                                adapter.addPokemon(poke);
+                            if(!task.getResult().isEmpty()){
+                                for (DocumentSnapshot ds : task.getResult()) {
+                                    Pokemon poke = ds.toObject(Pokemon.class);
+                                    pokemones.add(poke);
+                                    adapter.addPokemon(poke);
+                                }
                             }
                         }
                 );
@@ -152,12 +156,14 @@ public class ListPokemon extends AppCompatActivity implements View.OnClickListen
                         entrenador = ds.toObject(Entrenador.class);
                         Toast.makeText(this, "Bienvenido",Toast.LENGTH_LONG).show();
                         getPokemonFromFirestore();
+                        adapter.setEntrenador(entrenador);
                     }
                     else{
                         Entrenador n = new Entrenador(name);
                         registrarEntrenador(n);
                         entrenador = n;
                         Toast.makeText(this, "Has sido registrado, Bienvenido",Toast.LENGTH_LONG).show();
+                        adapter.setEntrenador(entrenador);
                     }
                 }
         );
