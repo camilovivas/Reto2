@@ -1,6 +1,7 @@
 package com.example.reto2;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -35,7 +36,13 @@ public class ListPokemon extends AppCompatActivity implements View.OnClickListen
     private Entrenador entrenador;
     //firebase
     private FirebaseFirestore db;
+    //STATE
+    private  PokemonAdapter adapter;
 
+    public ListPokemon(){
+
+        adapter = new PokemonAdapter();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -50,6 +57,9 @@ public class ListPokemon extends AppCompatActivity implements View.OnClickListen
         list = findViewById(R.id.list);
         buscarBtn.setOnClickListener(this);
         atraparBtn.setOnClickListener(this);
+        list.setAdapter(adapter);
+
+
     }
 
     @Override
