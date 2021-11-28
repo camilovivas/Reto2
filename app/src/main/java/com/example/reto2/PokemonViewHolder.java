@@ -30,7 +30,7 @@ public class PokemonViewHolder extends RecyclerView.ViewHolder {
 
     private void actionbtn() {
         Intent intent = new Intent(activity, PokemonDetail.class);
-        intent.putExtra("entrenador", entrenador);
+        intent.putExtra("trainer", entrenador);
         intent.putExtra("pokemon", pokemon);
         activity.startActivity(intent);
     }
