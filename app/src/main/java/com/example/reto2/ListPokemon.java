@@ -102,7 +102,7 @@ public class ListPokemon extends AppCompatActivity implements View.OnClickListen
         new Thread(
                 ()->{
                     String response  = https.GETrequest("https://pokeapi.co/api/v2/pokemon/"+pokemonName);
-                    if (response != null){
+                    if (response != ""){
                         try {
                             JSONObject pokemon = new JSONObject(response);
                             String name = pokemon.getString("name");
@@ -121,10 +121,11 @@ public class ListPokemon extends AppCompatActivity implements View.OnClickListen
                             atraparPokemon(p, entrenador);
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            runOnUiThread(()->Toast.makeText(this, "Pokemon no encontrado, verifica el nombre",Toast.LENGTH_LONG).show());
                         }
                     }
                     else{
-                        Toast.makeText(this, "Pokemon no encontrado, verifica el nombre",Toast.LENGTH_LONG).show();
+                        runOnUiThread(()->Toast.makeText(this, "Pokemon no encontrado, verifica el nombre",Toast.LENGTH_LONG).show());
                     }
                 }
         ).start();
