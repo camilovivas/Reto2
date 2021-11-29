@@ -57,4 +57,9 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonViewHolder> {
         pokemons.add(pokemon);
         notifyItemInserted(pokemons.size()-1);
     }
+
+    public void clear(){
+        pokemons.clear();
+        notifyItemRemoved(pokemons.size()-1);
+    }
 }

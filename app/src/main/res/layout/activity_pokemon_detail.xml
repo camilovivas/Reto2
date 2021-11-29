@@ -21,11 +21,10 @@
         android:id="@+id/soltarBtn"
         android:layout_width="95dp"
         android:layout_height="48dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="20dp"
         android:text="Soltar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -56,13 +55,12 @@
         android:id="@+id/textView6"
         android:layout_width="58dp"
         android:layout_height="27dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="76dp"
+        android:layout_marginEnd="52dp"
         android:text="Ataque"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pokename" />
+        app:layout_constraintTop_toTopOf="@+id/textView5" />
 
     <TextView
         android:id="@+id/textView7"
@@ -72,63 +70,58 @@
         android:text="Velocidad"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.158"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textView5"
+        app:layout_constraintStart_toStartOf="@+id/textView5"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <TextView
         android:id="@+id/textView8"
         android:layout_width="39dp"
         android:layout_height="18dp"
-        android:layout_marginTop="104dp"
         android:text="Vida"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.787"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintEnd_toEndOf="@+id/textView6"
+        app:layout_constraintStart_toStartOf="@+id/textView6"
+        app:layout_constraintTop_toTopOf="@+id/textView7" />
 
     <TextView
         android:id="@+id/vdefensaTxt"
         android:layout_width="58dp"
         android:layout_height="19dp"
-        android:layout_marginStart="52dp"
         android:layout_marginTop="32dp"
         android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textView5"
+        app:layout_constraintStart_toStartOf="@+id/textView5"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <TextView
         android:id="@+id/ataqueTxt"
         android:layout_width="58dp"
         android:layout_height="19dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="68dp"
         android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintEnd_toEndOf="@+id/textView6"
+        app:layout_constraintStart_toStartOf="@+id/textView6"
+        app:layout_constraintTop_toTopOf="@+id/vdefensaTxt" />
 
     <TextView
         android:id="@+id/velocidadTxt"
-        android:layout_width="58dp"
-        android:layout_height="19dp"
-        android:layout_marginStart="52dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textView7"
+        app:layout_constraintStart_toStartOf="@+id/textView7"
         app:layout_constraintTop_toBottomOf="@+id/textView7"
         app:layout_constraintVertical_bias="0.279" />
 
     <TextView
         android:id="@+id/vidaTxt"
         android:layout_width="58dp"
-        android:layout_height="19dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="68dp"
+        android:layout_height="wrap_content"
         android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        app:layout_constraintEnd_toEndOf="@+id/textView8"
+        app:layout_constraintStart_toStartOf="@+id/textView8"
+        app:layout_constraintTop_toTopOf="@+id/velocidadTxt" />
 </androidx.constraintlayout.widget.ConstraintLayout>

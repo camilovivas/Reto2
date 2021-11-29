@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import model.Entrenador;
 import model.Pokemon;
@@ -37,6 +38,7 @@ public class PokemonDetail extends AppCompatActivity {
         entrenador = (Entrenador) getIntent().getExtras().get("trainer");
 
         init();
+        soltar.setOnClickListener((v)->deletePokemon());
 
     }
 
@@ -50,9 +52,10 @@ public class PokemonDetail extends AppCompatActivity {
     }
 
     //TODO
-    public void deletePokemon(String name){
-
-
+    public void deletePokemon(){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("entrenadores").document(entrenador.getNombre())
+                .collection("pokemones").document(pokemon.getNombre()).delete();
     }
 
 }
