@@ -59,7 +59,7 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonViewHolder> {
     }
 
     public void clear(){
+        notifyItemRangeRemoved(0, pokemons.size());
         pokemons.clear();
-        notifyItemRemoved(pokemons.size()-1);
     }
 }

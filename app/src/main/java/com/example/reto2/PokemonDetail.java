@@ -2,6 +2,7 @@ package com.example.reto2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -56,6 +57,10 @@ public class PokemonDetail extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("entrenadores").document(entrenador.getNombre())
                 .collection("pokemones").document(pokemon.getNombre()).delete();
+        Intent intent = new Intent(this, ListPokemon.class);
+        intent.putExtra("entrenador", entrenador.getNombre());
+        startActivity(intent);
+        finish();
     }
 
 }

@@ -75,6 +75,7 @@ public class ListPokemon extends AppCompatActivity implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.buscarBtn:
+                adapter.clear();
                 pokemonSearch(buscar.getText().toString());
 
                 break;
@@ -171,18 +172,16 @@ public class ListPokemon extends AppCompatActivity implements View.OnClickListen
 
 
 
-    public Pokemon pokemonSearch(String nombreDelPokemon){
-
-        Pokemon[] toReturn = {null};
+    public void pokemonSearch(String nombreDelPokemon){
         Query query = db.collection("entrenadores").document(entrenador.getNombre())
                 .collection("pokemones").whereEqualTo("nombre", nombreDelPokemon);
         query.get().addOnCompleteListener(
                 task -> {
-
                     if(!task.getResult().isEmpty()){
                         DocumentSnapshot ds = task.getResult().getDocuments().get(0);
-                        toReturn[0] = ds.toObject(Pokemon.class);
-                        Toast.makeText(this,toReturn[0].getNombre() ,Toast.LENGTH_LONG).show();
+                        Pokemon pokefound = ds.toObject(Pokemon.class);
+                        Toast.makeText(this, "",Toast.LENGTH_LONG).show();
+                        adapter.addPokemon(pokefound);
                     }
                     else{
 
@@ -190,6 +189,5 @@ public class ListPokemon extends AppCompatActivity implements View.OnClickListen
                     }
                 }
         );
-        return toReturn[0];
     }
 }
